@@ -67,8 +67,8 @@ optimize-live:
   # that should be scraped to fetch metrics.
   # When using DataDog or another external metrics provider, this field
   # should be left at the default ""
-  metricsURL: "http://prometheus-1654624371-server.default.svc:9090/api/v1/status/flags"
-
+  metricsURL: "http://prometheus-server.monitoring.svc:9090"
+ 
   podAnnotations: {}
 
   podSecurityContext: {}
