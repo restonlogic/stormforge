@@ -2,18 +2,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: optimize-live
+  name: optimize-pro
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: stormforge-live
+    namespace: stormforge-system-2
   project: default
   source:
-    path: optimize-live
+    path: optimize-pro
     repoURL: https://github.com/restonlogic/stormforge.git
     targetRevision: HEAD
-  syncPolicy:
+    plugin: 
+      name: argocd-vault-plugin
+  syncPolicy: 
     automated:  
       prune: true 
       selfHeal: true 
