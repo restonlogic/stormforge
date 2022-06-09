@@ -6,7 +6,7 @@ metadata:
     control-plane: controller-manager
     app.kubernetes.io/version: v2.0.13
   name: optimize-controller-manager
-  namespace: stormforge-system-2
+  namespace: stormforge-system
 spec:
   replicas: 1
   selector:

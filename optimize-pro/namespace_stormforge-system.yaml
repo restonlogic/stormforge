@@ -5,4 +5,4 @@ metadata:
     app.kubernetes.io/name: optimize
     control-plane: controller-manager
     app.kubernetes.io/version: v2.0.13
-  name: stormforge-system-2
+  name: stormforge-system
