@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: secretpassword
+  namespace: argocd
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  project: default
+  source:
+    path: test/secret.yaml
+    repoURL: https://github.com/restonlogic/stormforge.git
+    targetRevision: HEAD
+    plugin: 
+      name: argocd-vault-plugin
+  syncPolicy:
+    automated:  
+      prune: true 
+      selfHeal: true 
+    syncOptions:  
+    - CreateNamespace=true
+---
+
+
+
+
+
+
+
+
+
+
+
+
