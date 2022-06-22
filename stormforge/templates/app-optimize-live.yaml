@@ -2,7 +2,7 @@
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: stormforge/optimize-live
+#   name: optimize-live
 #   namespace: argocd
 # spec:
 #   destination:
@@ -10,7 +10,7 @@
 #     namespace: stormforge-system
 #   project: default
 #   source:
-#     path: optimize-live
+#     path: stormforge/optimize-live
 #     repoURL: https://github.com/restonlogic/stormforge.git
 #     targetRevision: HEAD
 #     plugin: 
