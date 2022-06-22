@@ -5,4 +5,4 @@ version: 1.0.0
 dependencies:
   - name: optimize-controller
     repository: https://registry.stormforge.io/chartrepo/library/
-    version: 2.0.13
+    version: 2.1.1
