@@ -14,7 +14,22 @@
 #     repoURL: https://github.com/restonlogic/stormforge.git
 #     targetRevision: HEAD
 #     plugin: 
-#       name: argocd-vault-plugin
+#       name: argocd-vault-plugin-helm
+#       env:
+#         - name: 
+#           value: |
+#             optimize-live: 
+#               metricsURL: "http://prometheus-server.monitoring.svc:80"
+#               authorization:
+#                 clientID: 
+#                 clientSecret: 
+#                 issuer: https://api.stormforge.io/
+#               imageCredentials:
+#                 password: 
+#                 registry: registry.stormforge.io
+#                 username: 
+#               stormforge:
+#                 address: https://api.stormforge.io/
 #   syncPolicy:
 #     automated:  
 #       prune: true 

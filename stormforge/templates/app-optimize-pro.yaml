@@ -13,8 +13,23 @@ spec:
     path: stormforge/optimize-pro
     repoURL: https://github.com/restonlogic/stormforge.git
     targetRevision: HEAD
-    # plugin: 
-    #   name: argocd-vault-plugin
+    plugin:
+      name: argocd-vault-plugin-helm
+      env:
+        - name: HELM_VALUES
+          value: |
+            optimize-controller: 
+              image:
+                repository: thestormforge/optimize-controller
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ""
+              rbac:
+                create: true
+                bootstrapPermissions: true
+              authorization:
+                clientID: <path:secret/optimize-pro#clientID>
+                clientSecret: <path:secret/optimize-pro#clientSecret>
   syncPolicy:
     automated:  
       prune: true 

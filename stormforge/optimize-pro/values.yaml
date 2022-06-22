@@ -1,13 +1,13 @@
-optimize-controller: 
-  image:
-    repository: thestormforge/optimize-controller
-    pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
-  rbac:
-    create: true
-    bootstrapPermissions: true
-  authorization:
-    clientID: <>
-    clientSecret: <>
+# optimize-controller: 
+#   image:
+#     repository: thestormforge/optimize-controller
+#     pullPolicy: IfNotPresent
+#     # Overrides the image tag whose default is the chart appVersion.
+#     tag: ""
+#   rbac:
+#     create: true
+#     bootstrapPermissions: true
+#   authorization:
+#     clientID: <>
+#     clientSecret: <>
   
