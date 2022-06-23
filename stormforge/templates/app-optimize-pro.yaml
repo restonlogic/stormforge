@@ -10,7 +10,9 @@ spec:
     namespace: stormforge-system
   project: default
   source:
-    path: stormforge/optimize-pro/yamls
+    path: stormforge/optimize-pro/install
+    # directory:
+    #   recurse: true
     repoURL: https://github.com/restonlogic/stormforge.git
     targetRevision: HEAD
     plugin: 
