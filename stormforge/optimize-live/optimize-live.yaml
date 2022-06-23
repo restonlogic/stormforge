@@ -1,288 +1,288 @@
----
-# Source: optimize-live/templates/serviceaccount.yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: optimize-live
-  namespace: default
-  labels:
-    helm.sh/chart: optimize-live-0.2.2
-    app.kubernetes.io/name: optimize-live
-    app.kubernetes.io/instance: optimize-live
-    component: controller
-    app.kubernetes.io/version: "0.0.6"
-    app.kubernetes.io/managed-by: Helm
-    component: controller
-imagePullSecrets:
-- name: optimize-live-docker
----
-# Source: optimize-live/templates/imagepullsecret.yaml
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/dockerconfigjson
-metadata:
-  name: optimize-live-docker
-  labels:
-    helm.sh/chart: optimize-live-0.2.2
-    app.kubernetes.io/name: optimize-live
-    app.kubernetes.io/instance: optimize-live
-    component: controller
-    app.kubernetes.io/version: "0.0.6"
-    app.kubernetes.io/managed-by: Helm
-    component: controller
-  namespace: default
-data:
-  .dockerconfigjson: eyJhdXRocyI6eyJyZWdpc3RyeS5zdG9ybWZvcmdlLmlvIjp7ImF1dGhzIjoiZFhObGNtNWhiV1U2Y0dGemMzZHZjbVE9IiwicGFzc3dvcmQiOiJwYXNzd29yZCIsInVzZXJuYW1lIjoidXNlcm5hbWUifX19
----
-# Source: optimize-live/templates/secret.yaml
-apiVersion: v1
-kind: Secret
-type: Opaque
-metadata:
-  name: optimize-live
-  labels:
-    helm.sh/chart: optimize-live-0.2.2
-    app.kubernetes.io/name: optimize-live
-    app.kubernetes.io/instance: optimize-live
-    component: controller
-    app.kubernetes.io/version: "0.0.6"
-    app.kubernetes.io/managed-by: Helm
-    component: controller
-  namespace: default
-data:
-  STORMFORGE_AUTHORIZATION_CLIENT_ID: aWQ=
-  STORMFORGE_AUTHORIZATION_CLIENT_SECRET: c2VjcmV0
-  STORMFORGE_SERVER_IDENTIFIER: aHR0cHM6Ly9hcGkuc3Rvcm1mb3JnZS5pby8=
-  STORMFORGE_SERVER_ISSUER: aHR0cHM6Ly9hcGkuc3Rvcm1mb3JnZS5pby8=
----
-# Source: optimize-live/templates/role.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  creationTimestamp: null
-  name: optimize-live
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - namespaces
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - persistentvolumeclaims
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - services
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - apps
-  resources:
-  - replicasets
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - apps
-  resources:
-  - statefulsets
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - optimize.stormforge.io
-  resources:
-  - lives
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - optimize.stormforge.io
-  resources:
-  - lives/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - optimize.stormforge.io
-  resources:
-  - lives/status
-  verbs:
-  - get
-  - patch
-  - update
----
-# Source: optimize-live/templates/rolebinding.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: optimize-live
-  labels:
-    helm.sh/chart: optimize-live-0.2.2
-    app.kubernetes.io/name: optimize-live
-    app.kubernetes.io/instance: optimize-live
-    component: controller
-    app.kubernetes.io/version: "0.0.6"
-    app.kubernetes.io/managed-by: Helm
-    component: controller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: optimize-live
-subjects:
-- kind: ServiceAccount
-  name: optimize-live
-  namespace: default
----
-# Source: optimize-live/templates/deployment.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: optimize-live
-  labels:
-    helm.sh/chart: optimize-live-0.2.2
-    app.kubernetes.io/name: optimize-live
-    app.kubernetes.io/instance: optimize-live
-    component: controller
-    app.kubernetes.io/version: "0.0.6"
-    app.kubernetes.io/managed-by: Helm
-    component: controller
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: optimize-live
-      app.kubernetes.io/instance: optimize-live
-      component: controller
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      annotations:
-        configChecksum: d5a1a9ac4c6273ea8942e7615abc2d0e79f2880592e53433f1571eadc4ea7d74
-      labels:
-        app.kubernetes.io/name: optimize-live
-        app.kubernetes.io/instance: optimize-live
-        component: controller
-        helm.sh/chart-version: 0.2.2
-    spec:
-      enableServiceLinks: false
-      imagePullSecrets:
-      - name: optimize-live-docker
-      serviceAccountName: optimize-live
-      securityContext:
-        {}
-      containers:
-        - name: optimize-live
-          envFrom:
-          - secretRef:
-              name: optimize-live
-          env:
-          - name: IMAGE_PULL_SECRET_NAME
-            value: optimize-live-docker
-          - name: SF_CREDS_SECRET_NAME
-            value: optimize-live
-          - name: COMPONENT_TSDB_IMAGE
-            value: registry.stormforge.io/optimize-live/tsdb:0.0.10
-          - name: COMPONENT_APPLIER_IMAGE
-            value: registry.stormforge.io/optimize-live/applier:0.0.4
-          - name: COMPONENT_RECOMMENDER_IMAGE
-            value: registry.stormforge.io/optimize-live/recommender:0.2.4
-          - name: COMPONENT_GRAFANA_IMAGE
-            value: grafana/grafana-oss:8.4.6
-          - name: CONTROLLER_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          - name: CONTROLLER_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
-          - name: CONTROLLER_SERVICE_ACCOUNT
-            valueFrom:
-              fieldRef:
-                fieldPath: spec.serviceAccountName
-          - name: CHART_VERSION
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.labels['helm.sh/chart-version']
-          securityContext:
-            runAsNonRoot: true
-          image: registry.stormforge.io/optimize-live/controller:0.0.16
-          imagePullPolicy: IfNotPresent
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 8081
-            initialDelaySeconds: 15
-            periodSeconds: 20
-          readinessProbe:
-            httpGet:
-              path: /readyz
-              port: 8081
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          resources:
-            {}
+# ---
+# # Source: optimize-live/templates/serviceaccount.yaml
+# apiVersion: v1
+# kind: ServiceAccount
+# metadata:
+#   name: optimize-live
+#   namespace: default
+#   labels:
+#     helm.sh/chart: optimize-live-0.2.2
+#     app.kubernetes.io/name: optimize-live
+#     app.kubernetes.io/instance: optimize-live
+#     component: controller
+#     app.kubernetes.io/version: "0.0.6"
+#     app.kubernetes.io/managed-by: Helm
+#     component: controller
+# imagePullSecrets:
+# - name: optimize-live-docker
+# ---
+# # Source: optimize-live/templates/imagepullsecret.yaml
+# apiVersion: v1
+# kind: Secret
+# type: kubernetes.io/dockerconfigjson
+# metadata:
+#   name: optimize-live-docker
+#   labels:
+#     helm.sh/chart: optimize-live-0.2.2
+#     app.kubernetes.io/name: optimize-live
+#     app.kubernetes.io/instance: optimize-live
+#     component: controller
+#     app.kubernetes.io/version: "0.0.6"
+#     app.kubernetes.io/managed-by: Helm
+#     component: controller
+#   namespace: default
+# data:
+#   .dockerconfigjson: eyJhdXRocyI6eyJyZWdpc3RyeS5zdG9ybWZvcmdlLmlvIjp7ImF1dGhzIjoiZFhObGNtNWhiV1U2Y0dGemMzZHZjbVE9IiwicGFzc3dvcmQiOiJwYXNzd29yZCIsInVzZXJuYW1lIjoidXNlcm5hbWUifX19
+# ---
+# # Source: optimize-live/templates/secret.yaml
+# apiVersion: v1
+# kind: Secret
+# type: Opaque
+# metadata:
+#   name: optimize-live
+#   labels:
+#     helm.sh/chart: optimize-live-0.2.2
+#     app.kubernetes.io/name: optimize-live
+#     app.kubernetes.io/instance: optimize-live
+#     component: controller
+#     app.kubernetes.io/version: "0.0.6"
+#     app.kubernetes.io/managed-by: Helm
+#     component: controller
+#   namespace: default
+# data:
+#   STORMFORGE_AUTHORIZATION_CLIENT_ID: aWQ=
+#   STORMFORGE_AUTHORIZATION_CLIENT_SECRET: c2VjcmV0
+#   STORMFORGE_SERVER_IDENTIFIER: aHR0cHM6Ly9hcGkuc3Rvcm1mb3JnZS5pby8=
+#   STORMFORGE_SERVER_ISSUER: aHR0cHM6Ly9hcGkuc3Rvcm1mb3JnZS5pby8=
+# ---
+# # Source: optimize-live/templates/role.yaml
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRole
+# metadata:
+#   creationTimestamp: null
+#   name: optimize-live
+# rules:
+# - apiGroups:
+#   - ""
+#   resources:
+#   - configmaps
+#   verbs:
+#   - create
+#   - delete
+#   - get
+#   - list
+#   - patch
+#   - update
+#   - watch
+# - apiGroups:
+#   - ""
+#   resources:
+#   - namespaces
+#   verbs:
+#   - get
+#   - list
+#   - watch
+# - apiGroups:
+#   - ""
+#   resources:
+#   - persistentvolumeclaims
+#   verbs:
+#   - create
+#   - delete
+#   - get
+#   - list
+#   - patch
+#   - update
+#   - watch
+# - apiGroups:
+#   - ""
+#   resources:
+#   - pods
+#   verbs:
+#   - get
+#   - list
+#   - watch
+# - apiGroups:
+#   - ""
+#   resources:
+#   - services
+#   verbs:
+#   - create
+#   - delete
+#   - get
+#   - list
+#   - patch
+#   - update
+#   - watch
+# - apiGroups:
+#   - apps
+#   resources:
+#   - deployments
+#   verbs:
+#   - create
+#   - delete
+#   - get
+#   - list
+#   - patch
+#   - update
+#   - watch
+# - apiGroups:
+#   - apps
+#   resources:
+#   - replicasets
+#   verbs:
+#   - get
+#   - list
+#   - watch
+# - apiGroups:
+#   - apps
+#   resources:
+#   - statefulsets
+#   verbs:
+#   - create
+#   - delete
+#   - get
+#   - list
+#   - patch
+#   - update
+#   - watch
+# - apiGroups:
+#   - optimize.stormforge.io
+#   resources:
+#   - lives
+#   verbs:
+#   - create
+#   - delete
+#   - get
+#   - list
+#   - patch
+#   - update
+#   - watch
+# - apiGroups:
+#   - optimize.stormforge.io
+#   resources:
+#   - lives/finalizers
+#   verbs:
+#   - update
+# - apiGroups:
+#   - optimize.stormforge.io
+#   resources:
+#   - lives/status
+#   verbs:
+#   - get
+#   - patch
+#   - update
+# ---
+# # Source: optimize-live/templates/rolebinding.yaml
+# apiVersion: rbac.authorization.k8s.io/v1
+# kind: ClusterRoleBinding
+# metadata:
+#   name: optimize-live
+#   labels:
+#     helm.sh/chart: optimize-live-0.2.2
+#     app.kubernetes.io/name: optimize-live
+#     app.kubernetes.io/instance: optimize-live
+#     component: controller
+#     app.kubernetes.io/version: "0.0.6"
+#     app.kubernetes.io/managed-by: Helm
+#     component: controller
+# roleRef:
+#   apiGroup: rbac.authorization.k8s.io
+#   kind: ClusterRole
+#   name: optimize-live
+# subjects:
+# - kind: ServiceAccount
+#   name: optimize-live
+#   namespace: default
+# ---
+# # Source: optimize-live/templates/deployment.yaml
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: optimize-live
+#   labels:
+#     helm.sh/chart: optimize-live-0.2.2
+#     app.kubernetes.io/name: optimize-live
+#     app.kubernetes.io/instance: optimize-live
+#     component: controller
+#     app.kubernetes.io/version: "0.0.6"
+#     app.kubernetes.io/managed-by: Helm
+#     component: controller
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: optimize-live
+#       app.kubernetes.io/instance: optimize-live
+#       component: controller
+#   strategy:
+#     type: Recreate
+#   template:
+#     metadata:
+#       annotations:
+#         configChecksum: d5a1a9ac4c6273ea8942e7615abc2d0e79f2880592e53433f1571eadc4ea7d74
+#       labels:
+#         app.kubernetes.io/name: optimize-live
+#         app.kubernetes.io/instance: optimize-live
+#         component: controller
+#         helm.sh/chart-version: 0.2.2
+#     spec:
+#       enableServiceLinks: false
+#       imagePullSecrets:
+#       - name: optimize-live-docker
+#       serviceAccountName: optimize-live
+#       securityContext:
+#         {}
+#       containers:
+#         - name: optimize-live
+#           envFrom:
+#           - secretRef:
+#               name: optimize-live
+#           env:
+#           - name: IMAGE_PULL_SECRET_NAME
+#             value: optimize-live-docker
+#           - name: SF_CREDS_SECRET_NAME
+#             value: optimize-live
+#           - name: COMPONENT_TSDB_IMAGE
+#             value: registry.stormforge.io/optimize-live/tsdb:0.0.10
+#           - name: COMPONENT_APPLIER_IMAGE
+#             value: registry.stormforge.io/optimize-live/applier:0.0.4
+#           - name: COMPONENT_RECOMMENDER_IMAGE
+#             value: registry.stormforge.io/optimize-live/recommender:0.2.4
+#           - name: COMPONENT_GRAFANA_IMAGE
+#             value: grafana/grafana-oss:8.4.6
+#           - name: CONTROLLER_NAMESPACE
+#             valueFrom:
+#               fieldRef:
+#                 fieldPath: metadata.namespace
+#           - name: CONTROLLER_NAME
+#             valueFrom:
+#               fieldRef:
+#                 fieldPath: metadata.name
+#           - name: CONTROLLER_SERVICE_ACCOUNT
+#             valueFrom:
+#               fieldRef:
+#                 fieldPath: spec.serviceAccountName
+#           - name: CHART_VERSION
+#             valueFrom:
+#               fieldRef:
+#                 fieldPath: metadata.labels['helm.sh/chart-version']
+#           securityContext:
+#             runAsNonRoot: true
+#           image: registry.stormforge.io/optimize-live/controller:0.0.16
+#           imagePullPolicy: IfNotPresent
+#           livenessProbe:
+#             httpGet:
+#               path: /healthz
+#               port: 8081
+#             initialDelaySeconds: 15
+#             periodSeconds: 20
+#           readinessProbe:
+#             httpGet:
+#               path: /readyz
+#               port: 8081
+#             initialDelaySeconds: 5
+#             periodSeconds: 10
+#           resources:
+#             {}
