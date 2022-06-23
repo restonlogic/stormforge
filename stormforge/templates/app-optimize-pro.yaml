@@ -17,12 +17,12 @@ spec:
     targetRevision: HEAD
     plugin: 
       name: argocd-vault-plugin
-  syncPolicy:
-    automated:  
-      prune: true 
-      selfHeal: true 
-    syncOptions:  
-    - CreateNamespace=true
+  # syncPolicy:
+  #   automated:  
+  #     prune: true 
+  #     selfHeal: true 
+  #   syncOptions:  
+  #   - CreateNamespace=true
 ---
 
 
