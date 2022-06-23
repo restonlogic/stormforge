@@ -1,28 +1,28 @@
-# ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: optimize-pro
-#   namespace: argocd
-# spec:
-#   destination:
-#     server: 'https://kubernetes.default.svc'
-#     namespace: stormforge-system
-#   project: default
-#   source:
-#     path: stormforge/optimize-pro/install
-#     # directory:
-#     #   recurse: true
-#     repoURL: https://github.com/restonlogic/stormforge.git
-#     targetRevision: HEAD
-#     plugin: 
-#       name: argocd-vault-plugin
-#   # syncPolicy:
-#   #   automated:  
-#   #     prune: true 
-#   #     selfHeal: true 
-#   #   syncOptions:  
-#   #   - CreateNamespace=true
-# ---
+--- 
+apiVersion: argoproj.io/v1alpha1 
+kind: Application 
+metadata: 
+  name: optimize-pro 
+  namespace: argocd 
+spec: 
+  destination: 
+    server: 'https://kubernetes.default.svc' 
+    namespace: stormforge-system 
+  project: default 
+  source: 
+    path: stormforge/optimize-pro/install 
+    # directory: 
+    #   recurse: true 
+    repoURL: https://github.com/restonlogic/stormforge.git 
+    targetRevision: HEAD 
+    plugin: 
+      name: argocd-vault-plugin 
+  # syncPolicy: 
+  #   automated: 
+  #     prune: true 
+  #     selfHeal: true 
+  #   syncOptions: 
+  #   - CreateNamespace=true 
+--- 
 
 
