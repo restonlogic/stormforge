@@ -58,7 +58,7 @@ module "eks_blueprints_kubernetes_addons" {
   argocd_applications = {
     stormforge = {
           namespace          = kubernetes_namespace.stormforge-system.metadata[0]
-          path               = "stormforge"
+          path               = "applications"
           repo_url           = var.git_config.primary_repo
           target_revision    = "HEAD"
           destination        = "https://kubernetes.default.svc"

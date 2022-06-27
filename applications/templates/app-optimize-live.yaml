@@ -10,7 +10,7 @@ spec:
     namespace: stormforge-system
   project: default
   source:
-    path: stormforge/optimize-live
+    path: applications/optimize-live
     repoURL: https://github.com/restonlogic/stormforge.git
     targetRevision: HEAD
     plugin: 
