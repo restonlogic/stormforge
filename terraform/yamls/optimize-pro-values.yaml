@@ -1,3 +1,0 @@
-authorization:
-  clientID: <${opt_pro_client_id-key}>
-  clientSecret: <${opt_pro_client_secret-key}>

@@ -1,6 +1,0 @@
-dependencies:
-- name: optimize-controller
-  repository: https://registry.stormforge.io/chartrepo/library/
-  version: 2.1.1
-digest: sha256:0be8e909d153baff0ec71bf640eab628b5811f9e94b43e5679c4111f17e721d2
-generated: "2022-06-22T15:22:45.319828887-04:00"
