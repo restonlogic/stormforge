@@ -1,39 +1,24 @@
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: optimize-live
-  namespace: argocd
-spec:
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: stormforge-system
-  project: default
-  source:
-    path: applications/optimize-live
-    repoURL: https://github.com/restonlogic/stormforge.git
-    targetRevision: HEAD
-    plugin: 
-      name: argocd-vault-plugin-helm
-      env:
-        - name: HELM_VALUES
-          value: |
-            optimize-live: 
-              metricsURL: "http://prometheus-server.monitoring.svc:80"
-              authorization:
-                clientID: <path:secret/optimize-live#clientID>
-                clientSecret: <path:secret/optimize-live#clientSecret>
-                issuer: https://api.stormforge.io/
-              imageCredentials:
-                password: 
-                registry: registry.stormforge.io
-                username: 
-              stormforge:
-                address: https://api.stormforge.io/
-  syncPolicy:
-    automated:  
-      prune: true 
-      selfHeal: true 
-    syncOptions:  
-    - CreateNamespace=true
----
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: optimize-live
+#   namespace: argocd
+# spec:
+#   destination:
+#     server: 'https://kubernetes.default.svc'
+#     namespace: stormforge-system
+#   project: default
+#   source:
+#     path: applications/optimize-live
+#     repoURL: https://github.com/restonlogic/stormforge.git
+#     targetRevision: HEAD
+#     plugin: 
+#       name: argocd-vault-plugin
+#   syncPolicy:
+#     automated:  
+#       prune: true 
+#       selfHeal: true 
+#     syncOptions:  
+#     - CreateNamespace=true
+# ---
