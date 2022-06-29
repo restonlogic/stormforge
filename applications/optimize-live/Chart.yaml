@@ -1,8 +1,8 @@
-apiVersion: v2
-name: optimize-live
-description: A Helm chart for Kubernetes
-version: 1.0.0
-dependencies:
-  - name: optimize-live
-    repository: https://registry.stormforge.io/chartrepo/library/
-    version: 0.2.2
+# apiVersion: v2
+# name: optimize-live
+# description: A Helm chart for Kubernetes
+# version: 1.0.0
+# dependencies:
+#   - name: optimize-live
+#     repository: https://registry.stormforge.io/chartrepo/library/
+#     version: 0.2.2

@@ -1,7 +1,5 @@
 # ---
 # # Source: crds/optimize.stormforge.io_lives.yaml
-
-# ---
 # apiVersion: apiextensions.k8s.io/v1
 # kind: CustomResourceDefinition
 # metadata:
@@ -16,7 +14,7 @@
 #     listKind: LiveList
 #     plural: lives
 #     singular: live
-#   scope: Namespaced
+#   scope: Namespaced 
 #   versions:
 #   - name: v1
 #     schema:
@@ -637,7 +635,6 @@
 #     plural: ""
 #   conditions: []
 #   storedVersions: []
-
 # ---
 # # Source: optimize-live/templates/serviceaccount.yaml
 # apiVersion: v1

@@ -55,20 +55,20 @@ module "eks_blueprints_kubernetes_addons" {
       })
     ]
   }
-  argocd_applications = {
-    stormforge = {
-          namespace          = kubernetes_namespace.stormforge-system.metadata[0]
-          path               = "applications"
-          repo_url           = var.git_config.primary_repo
-          target_revision    = "HEAD"
-          destination        = "https://kubernetes.default.svc"
-          project            = "default"
-          add_on_application = false # Indicates the root add-on application.
-          values = {
-            syncPolicy = "automated"
-          }
-        }
-  }
+  # argocd_applications = {
+  #   stormforge = {
+  #         namespace          = kubernetes_namespace.stormforge-system.metadata[0]
+  #         path               = "applications"
+  #         repo_url           = var.git_config.primary_repo
+  #         target_revision    = "HEAD"
+  #         destination        = "https://kubernetes.default.svc"
+  #         project            = "default"
+  #         add_on_application = false # Indicates the root add-on application.
+  #         values = {
+  #           syncPolicy = "automated"
+  #         }
+  #       }
+  # }
 
 
 #---------------------------------------------------------------
@@ -89,12 +89,6 @@ module "eks_blueprints_kubernetes_addons" {
 
   tags = local.tags
 
-}
-
-resource "kubernetes_namespace" "stormforge-system" {
-  metadata {
-    name = "stormforge-system"
-  }
 }
 
 #---------------------------------------------------------------
