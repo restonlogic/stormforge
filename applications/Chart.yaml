@@ -1,5 +1,4 @@
-# apiVersion: v1
-# appVersion: "1.0"
-# name: stormforge-apps
-# description: stormforge applications
-# version: 0.1.1
+apiVersion: v1
+appVersion: "1.0"
+name: applications
+version: 1.2.3
