@@ -6,6 +6,6 @@ output "configure_kubectl" {
 #terraform output -raw argocd_password
 output "argocd_password" {
   description = "run 'terraform output -raw argocd_password' to get the password"
-  value = random_password.argocd_admin_password.result
-  sensitive = true
+  value       = random_password.argocd_admin_password.result
+  sensitive   = true
 }
