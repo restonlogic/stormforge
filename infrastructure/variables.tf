@@ -1,2 +1,2 @@
 variable "git_config" {}
-variable "aws_credentials" {}
+# variable "aws_credentials" {}

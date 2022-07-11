@@ -9,19 +9,19 @@ resource "random_password" "argocd_admin_password" {
 #---------------------------------------------------------------
 # Secret for ArgoCD vault plugin
 #---------------------------------------------------------------
-resource "kubernetes_secret_v1" "example" {
-  metadata {
-    name      = "vault-configuration"
-    namespace = "argocd"
-  }
+# resource "kubernetes_secret_v1" "example" {
+#   metadata {
+#     name      = "vault-configuration"
+#     namespace = "argocd"
+#   }
 
-  data = {
-    AVP_TYPE              = "awssecretsmanager"
-    AWS_REGION            = local.region
-    AWS_ACCESS_KEY_ID     = var.aws_credentials.access_key_id
-    AWS_SECRET_ACCESS_KEY = var.aws_credentials.secret_access_key
-  }
-}
+#   data = {
+#     AVP_TYPE              = "awssecretsmanager"
+#     AWS_REGION            = local.region
+#     AWS_ACCESS_KEY_ID     = var.aws_credentials.access_key_id
+#     AWS_SECRET_ACCESS_KEY = var.aws_credentials.secret_access_key
+#   }
+# }
 
 #---------------------------------------------------------------
 # EKS Blueprints Kubernetes Addons
