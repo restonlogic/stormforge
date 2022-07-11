@@ -10,13 +10,6 @@ git_config = {
   access_token = ""
   primary_repo = "https://github.com/restonlogic/stormforge" #Change to name of repo that contains your argocd applications. 
 }
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-#Required by ArgoCD vault plugin, for accessing awssecretsmanager. 
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-aws_credentials = { 
-  access_key_id = ""
-  secret_access_key = "
-}
 
 ```
 

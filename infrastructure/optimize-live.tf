@@ -17,8 +17,8 @@ resource "helm_release" "optimize-live" {
 
   values = [data.aws_secretsmanager_secret_version.optimize-live.secret_string]
 
-  set           {      
-    name = "metricsURL"
+  set {
+    name  = "metricsURL"
     value = "http://prometheus-server.monitoring.svc:80"
   }
 }
