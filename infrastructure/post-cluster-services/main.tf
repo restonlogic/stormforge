@@ -29,10 +29,10 @@ resource "random_password" "argocd_admin_password" {
 module "eks_blueprints_kubernetes_addons" {
   source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons"
 
-  eks_cluster_id       = module.eks_blueprints.eks_cluster_id
-  eks_cluster_endpoint = module.eks_blueprints.eks_cluster_endpoint
-  eks_oidc_provider    = module.eks_blueprints.oidc_provider
-  eks_cluster_version  = module.eks_blueprints.eks_cluster_version
+  eks_cluster_id       = data.aws_eks_cluster.eks.id
+  eks_cluster_endpoint = data.aws_eks_cluster.eks.endpoint
+  eks_oidc_provider    = data.aws_eks_cluster.eks.identity[0].oidc[0].issuer
+  eks_cluster_version  = data.aws_eks_cluster.eks.version
   #---------------------------------------------------------------
   # ArgoCD Configurations
   #---------------------------------------------------------------
@@ -47,11 +47,11 @@ module "eks_blueprints_kubernetes_addons" {
     timeout          = "1200"
     create_namespace = true
     values = [
-      templatefile("${path.module}/yamls/argocd-vaultplugin-values.yaml", {
+      templatefile("${path.module}/../yamls/argocd-vaultplugin-values.yaml", {
         argocd_admin_password = bcrypt(random_password.argocd_admin_password.result),
-        primary_repo_url      = var.git_config.primary_repo,
-        git_username          = var.git_config.username,
-        git_access_token      = var.git_config.access_token
+        primary_repo_url      = var.git_repo,
+        git_username          = var.git_user,
+        git_access_token      = var.git_token
       })
     ]
   }
@@ -59,7 +59,7 @@ module "eks_blueprints_kubernetes_addons" {
     sample-application = {
           namespace          = "argocd"
           path               = "applications"
-          repo_url           = var.git_config.primary_repo
+          repo_url           = var.git_repo
           target_revision    = "HEAD"
           destination        = "https://kubernetes.default.svc"
           project            = "default"
@@ -87,7 +87,7 @@ module "eks_blueprints_kubernetes_addons" {
   }
 
 
-  tags = local.tags
+  tags = var.tags
 
 }
 

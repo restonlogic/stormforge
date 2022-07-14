@@ -4,17 +4,17 @@
 module "eks_blueprints" {
   source = "github.com/aws-ia/terraform-aws-eks-blueprints"
 
-  cluster_name    = local.name
-  cluster_version = local.version
+  cluster_name    = var.project_config.cluster_name
+  cluster_version = var.project_config.cluster_version
 
-  vpc_id             = module.vpc.vpc_id
-  private_subnet_ids = module.vpc.private_subnets
+  vpc_id             = local.vpc_config.id
+  private_subnet_ids = local.vpc_config.private_subnets
 
   managed_node_groups = {
     mg_5x = {
-      node_group_name = "managed-nodegroup"
+      node_group_name = local.node_group_name
       instance_types  = ["m5.xlarge"]
-      subnet_ids      = module.vpc.private_subnets
+      subnet_ids      = local.vpc_config.private_subnets
 
       desired_size = 3
       max_size     = 10
@@ -22,5 +22,5 @@ module "eks_blueprints" {
     }
   }
 
-  tags = local.tags
+  tags = var.tags
 }
