@@ -97,7 +97,7 @@ if [ -n "$*" ]; then
 fi
 
 # Global variables.
-project='stormforge-1'
+project='stormforge'
 
 # Get account id info for this AWS
 accountid=$(aws sts get-caller-identity | jq -r '.Account')
