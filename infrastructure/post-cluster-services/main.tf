@@ -91,6 +91,13 @@ module "eks_blueprints_kubernetes_addons" {
 
 }
 
+resource "kubernetes_namespace" "stormforge-system" {
+  metadata {
+    name = "stormforge-system"
+  }
+}
+
+
 #---------------------------------------------------------------
 # Possible Kubernetes Addons
 #---------------------------------------------------------------

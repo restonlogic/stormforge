@@ -1,12 +1,7 @@
 data "aws_secretsmanager_secret_version" "optimize-pro" {
-  secret_id = "secret/optimize-pro"
+  secret_id = var.secret.name
 }
 
-resource "kubernetes_namespace" "stormforge-system" {
-  metadata {
-    name = "stormforge-system"
-  }
-}
 
 resource "helm_release" "optimize-pro" {
   name       = "optimize-controller"

@@ -16,7 +16,7 @@ module "eks_blueprints" {
       instance_types  = ["m5.xlarge"]
       subnet_ids      = local.vpc_config.private_subnets
 
-      desired_size = 3
+      desired_size = 5
       max_size     = 10
       min_size     = 3
     }
