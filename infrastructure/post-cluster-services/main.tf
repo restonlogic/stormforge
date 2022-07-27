@@ -33,6 +33,7 @@ module "eks_blueprints_kubernetes_addons" {
   eks_cluster_endpoint = data.aws_eks_cluster.eks.endpoint
   eks_oidc_provider    = data.aws_eks_cluster.eks.identity[0].oidc[0].issuer
   eks_cluster_version  = data.aws_eks_cluster.eks.version
+  eks_cluster_domain   = var.eks_cluster_domain
   #---------------------------------------------------------------
   # ArgoCD Configurations
   #---------------------------------------------------------------
@@ -86,6 +87,15 @@ module "eks_blueprints_kubernetes_addons" {
     # })]
   }
 
+  # ingress_nginx_helm_config = {
+  #   values = [templatefile("${path.module}/../yamls/nginx-values.yaml", {
+  #     hostname     = var.eks_cluster_domain
+  #     ssl_cert_arn = data.aws_acm_certificate.issued.arn
+  #   })]
+  # }
+
+  enable_aws_load_balancer_controller = true
+  enable_external_dns                 = true
 
   tags = var.tags
 

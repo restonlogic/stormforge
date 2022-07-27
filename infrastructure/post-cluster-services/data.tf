@@ -10,6 +10,11 @@ data "aws_eks_cluster" "eks" {
   name = var.project_config.cluster_name
 }
 
+data "aws_acm_certificate" "issued" {
+  domain   = var.acm_certificate_domain
+  statuses = ["ISSUED"]
+}
+
 # data "aws_eks_cluster_auth" "eks" {
 #   name = var.project_config.cluster_name
 # }

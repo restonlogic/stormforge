@@ -10,6 +10,15 @@ module "eks_blueprints" {
   vpc_id             = local.vpc_config.id
   private_subnet_ids = local.vpc_config.private_subnets
 
+  # map_users            = local.map_users
+  # map_roles = [
+  #   {
+  #     rolearn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${var.project_config.name}-mgmt-sa"
+  #     username = "${var.project_config.name}-mgmt-sa"
+  #     groups   = ["system:masters", "system:bootstrappers", "system:nodes"]
+  #   }
+  # ]
+
   managed_node_groups = {
     mg_5x = {
       node_group_name = local.node_group_name
