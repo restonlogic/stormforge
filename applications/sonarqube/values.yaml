@@ -1,0 +1,18 @@
+sonarqube:
+  service:  
+    type: NodePort
+    ports:
+      http: 9000
+  serviceAccount: 
+    create: true
+    name: "sonarqube"
+  sonarqubeUsername: "admin"
+  sonarqubePassword: "admin"
+  
+  
+  # image:
+  #   debug: true
+  # livenessProbe:
+  #   enabled: False
+  # readinessProbe: 
+  #   enabled: False

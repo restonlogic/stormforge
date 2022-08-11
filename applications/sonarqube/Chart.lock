@@ -1,0 +1,6 @@
+dependencies:
+- name: sonarqube
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.4.9
+digest: sha256:c19e2a2ae20b7c0a2bfff6f466210f09212f12022c967a8416614ac5ebd8696e
+generated: "2022-08-11T14:42:36.513197236-04:00"
