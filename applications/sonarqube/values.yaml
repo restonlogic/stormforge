@@ -7,8 +7,8 @@ sonarqube:
     create: true
     name: "sonarqube"
   sonarqubeUsername: "admin"
-  sonarqubePassword: "admin"
-  
+  # sonarqubePassword: "admin"
+  existingSecret: "my-secret"
   
   # image:
   #   debug: true
