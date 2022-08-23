@@ -3,14 +3,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: "${short_service}-ingress"
-  namespace: ${ingress_namespace}
+  namespace: "${ingress_namespace}"
   annotations:
     alb.ingress.kubernetes.io/group.name: "${project}-group"
     alb.ingress.kubernetes.io/group.order: "${group_number}"
     alb.ingress.kubernetes.io/scheme: "internet-facing"
     alb.ingress.kubernetes.io/target-type: "ip"
     alb.ingress.kubernetes.io/load-balancer-name: "${project}-alb"
-    external-dns.alpha.kubernetes.io/hostname: ${short_service}.${dns_domain}
+    external-dns.alpha.kubernetes.io/hostname: "${short_service}.${dns_domain}"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/certificate-arn: "${acm_certificate_arn}"
