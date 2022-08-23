@@ -1,0 +1,104 @@
+{
+    "rules": [
+        {
+            "rule-type": "transformation",
+            "rule-id": "088774477",
+            "rule-name": "088774477",
+            "rule-target": "column",
+            "object-locator": {
+                "schema-name": "%report_svc",
+                "table-name": "%conditions",
+                "column-name": "%patient"
+            },
+            "rule-action": "rename",
+            "value": "patientid",
+            "old-value": null
+        },
+        {
+            "rule-type": "transformation",
+            "rule-id": "088710432",
+            "rule-name": "088710432",
+            "rule-target": "column",
+            "object-locator": {
+                "schema-name": "%report_svc",
+                "table-name": "%encounters",
+                "column-name": "%patient"
+            },
+            "rule-action": "rename",
+            "value": "patientid",
+            "old-value": null
+        },
+        {
+            "rule-type": "transformation",
+            "rule-id": "088541931",
+            "rule-name": "088541931",
+            "rule-target": "column",
+            "object-locator": {
+                "schema-name": "%report_svc",
+                "table-name": "%medications",
+                "column-name": "%patient"
+            },
+            "rule-action": "rename",
+            "value": "patientid",
+            "old-value": null
+        },
+        {
+            "rule-type": "transformation",
+            "rule-id": "088106837",
+            "rule-name": "088106837",
+            "rule-target": "column",
+            "object-locator": {
+                "schema-name": "%report_svc",
+                "table-name": "%patients",
+                "column-name": "%id"
+            },
+            "rule-action": "rename",
+            "value": "patientid",
+            "old-value": null
+        },
+        {
+            "rule-type": "selection",
+            "rule-id": "087870845",
+            "rule-name": "087870845",
+            "object-locator": {
+                "schema-name": "%report_svc",
+                "table-name": "%conditions"
+            },
+            "rule-action": "include",
+            "filters": []
+        },
+        {
+            "rule-type": "selection",
+            "rule-id": "7878",
+            "rule-name": "7878",
+            "object-locator": {
+                "schema-name": "%report_svc",
+                "table-name": "%encounters"
+            },
+            "rule-action": "include",
+            "filters": []
+        },
+        {
+            "rule-type": "selection",
+            "rule-id": "7879",
+            "rule-name": "7879",
+            "object-locator": {
+                "schema-name": "%report_svc",
+                "table-name": "%medications"
+            },
+            "rule-action": "include",
+            "filters": []
+        },
+        {
+            "rule-type": "selection",
+            "rule-id": "7880",
+            "rule-name": "7880",
+            "object-locator": {
+                "schema-name": "%report_svc",
+                "table-name": "%patients"
+            },
+            "rule-action": "include",
+            "filters": []
+        }
+    ]
+}
