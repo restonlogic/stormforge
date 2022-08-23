@@ -6,22 +6,6 @@ resource "random_password" "argocd_admin_password" {
   special = false
 }
 
-#---------------------------------------------------------------
-# Secret for ArgoCD vault plugin
-#---------------------------------------------------------------
-# resource "kubernetes_secret_v1" "example" {
-#   metadata {
-#     name      = "vault-configuration"
-#     namespace = "argocd"
-#   }
-
-#   data = {
-#     AVP_TYPE              = "awssecretsmanager"
-#     AWS_REGION            = local.region
-#     AWS_ACCESS_KEY_ID     = var.aws_credentials.access_key_id
-#     AWS_SECRET_ACCESS_KEY = var.aws_credentials.secret_access_key
-#   }
-# }
 
 #---------------------------------------------------------------
 # EKS Blueprints Kubernetes Addons
@@ -33,7 +17,7 @@ module "eks_blueprints_kubernetes_addons" {
   eks_cluster_endpoint = data.aws_eks_cluster.eks.endpoint
   eks_oidc_provider    = data.aws_eks_cluster.eks.identity[0].oidc[0].issuer
   eks_cluster_version  = data.aws_eks_cluster.eks.version
-  eks_cluster_domain   = var.eks_cluster_domain
+
   #---------------------------------------------------------------
   # ArgoCD Configurations
   #---------------------------------------------------------------
@@ -71,7 +55,6 @@ module "eks_blueprints_kubernetes_addons" {
         }
   }
 
-
   #---------------------------------------------------------------
   # Prometheus Configurations
   #---------------------------------------------------------------
@@ -87,15 +70,22 @@ module "eks_blueprints_kubernetes_addons" {
     # })]
   }
 
-  # ingress_nginx_helm_config = {
-  #   values = [templatefile("${path.module}/../yamls/nginx-values.yaml", {
-  #     hostname     = var.eks_cluster_domain
-  #     ssl_cert_arn = data.aws_acm_certificate.issued.arn
-  #   })]
+  #---------------------------------------------------------------
+  # ALB Configurations
+  #---------------------------------------------------------------
+  # enable_aws_load_balancer_controller = true
+  # aws_load_balancer_controller_helm_config = {
+  #   version = var.versions_config.aws_lb_controller
   # }
 
-  enable_aws_load_balancer_controller = true
-  enable_external_dns                 = true
+  #---------------------------------------------------------------
+  # External DNS Configurations
+  #---------------------------------------------------------------
+
+  # enable_external_dns = true
+  # dns_domain   = var.dns_domain
+
+  #---------------------------------------------------------------
 
   tags = var.tags
 
@@ -124,3 +114,22 @@ resource "kubernetes_namespace" "stormforge-system" {
 #   enable_yunikorn           = true
 #   enable_argo_rollouts      = true
 #   enable_argocd             = true
+
+
+
+#---------------------------------------------------------------
+# Secret for ArgoCD vault plugin
+#---------------------------------------------------------------
+# resource "kubernetes_secret_v1" "example" {
+#   metadata {
+#     name      = "vault-configuration"
+#     namespace = "argocd"
+#   }
+
+#   data = {
+#     AVP_TYPE              = "awssecretsmanager"
+#     AWS_REGION            = local.region
+#     AWS_ACCESS_KEY_ID     = var.aws_credentials.access_key_id
+#     AWS_SECRET_ACCESS_KEY = var.aws_credentials.secret_access_key
+#   }
+# }

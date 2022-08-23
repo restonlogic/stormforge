@@ -64,9 +64,9 @@ data "aws_acm_certificate" "issued" {
 #   types  = ["AMAZON_ISSUED"]
 # }
 
-# data "aws_secretsmanager_secret_version" "eks_secrets" {
-#   secret_id = "/${var.project_config.name}/eks-secrets"
-# }
+data "aws_secretsmanager_secret_version" "eks_secrets" {
+  secret_id = "/${var.project_config.name}/eks-secrets"
+}
 
 # data "aws_route53_zone" "dns_domain" {
 #   name         = var.dns_domain
