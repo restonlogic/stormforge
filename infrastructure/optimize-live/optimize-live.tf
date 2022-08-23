@@ -1,5 +1,5 @@
-data "aws_secretsmanager_secret_version" "optimize-live" {
-  secret_id = var.secret.name
+data "aws_secretsmanager_secret_version" "optimize-pro" {
+  secret_id = var.secrets.stormforge
 }
 
 resource "helm_release" "optimize-live" {
