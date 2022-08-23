@@ -17,7 +17,7 @@ variable "tags" {}
 
 
 # # enable_external_dns = false
-# # eks_cluster_domain = var.dns_domain
+# # dns_domain = var.dns_domain
 # # external_dns_helm_config = {
 # # version = var.versions_config.external_dns
 # # }
