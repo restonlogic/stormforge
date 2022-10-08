@@ -1,7 +1,6 @@
-data "aws_secretsmanager_secret_version" "optimize-pro" {
+data "aws_secretsmanager_secret_version" "optimize-secret" {
   secret_id = var.secrets.stormforge
 }
-
 
 resource "helm_release" "optimize-pro" {
   name       = "optimize-controller"
@@ -10,5 +9,6 @@ resource "helm_release" "optimize-pro" {
   version    = "2.1.1"
   namespace  = "stormforge-system"
 
-  values = [data.aws_secretsmanager_secret_version.optimize-pro.secret_string]
+  values = [data.aws_secretsmanager_secret_version.optimize-secret.secret_string]
 }
+

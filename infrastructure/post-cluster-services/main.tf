@@ -1,11 +1,16 @@
 #---------------------------------------------------------------
 # Randomized password for ArgoCD dashboard
 #---------------------------------------------------------------
-resource "random_password" "argocd_admin_password" {
-  length  = 16
-  special = false
-}
+# resource "random_password" "argocd_admin_password" {
+#   length  = 16
+#   special = false
+# }
 
+resource "kubernetes_namespace" "stormforge-system" {
+  metadata {
+    name = "stormforge-system"
+  }
+}
 
 #---------------------------------------------------------------
 # EKS Blueprints Kubernetes Addons
@@ -18,42 +23,42 @@ module "eks_blueprints_kubernetes_addons" {
   eks_oidc_provider    = data.aws_eks_cluster.eks.identity[0].oidc[0].issuer
   eks_cluster_version  = data.aws_eks_cluster.eks.version
 
-  #---------------------------------------------------------------
-  # ArgoCD Configurations
-  #---------------------------------------------------------------
-  enable_argocd         = true
+  #--------------------------------------------------------------#
+  # ArgoCD Configurations                                        #
+  #--------------------------------------------------------------#
+  enable_argocd         = false
   argocd_manage_add_ons = false # Indicates that ArgoCD is responsible for managing/deploying add-ons
-  argocd_helm_config = {
-    name             = "argo-cd"
-    chart            = "argo-cd"
-    repository       = "https://argoproj.github.io/argo-helm"
-    version          = "4.9.4"
-    namespace        = "argocd"
-    timeout          = "1200"
-    create_namespace = true
-    values = [
-      templatefile("${path.module}/../yamls/argocd-vaultplugin-values.yaml", {
-        argocd_admin_password = bcrypt(random_password.argocd_admin_password.result),
-        primary_repo_url      = var.git_repo,
-        git_username          = var.git_user,
-        git_access_token      = var.git_token
-      })
-    ]
-  }
-  argocd_applications = {
-    sample-application = {
-          namespace          = "argocd"
-          path               = "applications"
-          repo_url           = var.git_repo
-          target_revision    = "HEAD"
-          destination        = "https://kubernetes.default.svc"
-          project            = "default"
-          add_on_application = false # Indicates the root add-on application.
-          values = {
-            syncPolicy = "automated"
-          }
-        }
-  }
+  # argocd_helm_config = {
+  #   name             = "argo-cd"
+  #   chart            = "argo-cd"
+  #   repository       = "https://argoproj.github.io/argo-helm"
+  #   version          = "4.9.4"
+  #   namespace        = "argocd"
+  #   timeout          = "1200"
+  #   create_namespace = true
+  #   values = [
+  #     templatefile("${path.module}/../yamls/argocd-vaultplugin-values.yaml", {
+  #       argocd_admin_password = bcrypt(random_password.argocd_admin_password.result),
+  #       primary_repo_url      = var.git_repo,
+  #       git_username          = var.git_user,
+  #       git_access_token      = var.git_token
+  #     })
+  #   ]
+  # }
+  # argocd_applications = {
+  #   sample-application = {
+  #         namespace          = "argocd"
+  #         path               = "applications"
+  #         repo_url           = var.git_repo
+  #         target_revision    = "HEAD"
+  #         destination        = "https://kubernetes.default.svc"
+  #         project            = "default"
+  #         add_on_application = false # Indicates the root add-on application.
+  #         values = {
+  #           syncPolicy = "automated"
+  #         }
+  #       }
+  # }
 
   #---------------------------------------------------------------
   # Prometheus Configurations
@@ -91,11 +96,6 @@ module "eks_blueprints_kubernetes_addons" {
 
 }
 
-resource "kubernetes_namespace" "stormforge-system" {
-  metadata {
-    name = "stormforge-system"
-  }
-}
 
 
 #---------------------------------------------------------------
