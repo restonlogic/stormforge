@@ -6,7 +6,7 @@ resource "helm_release" "optimize-live" {
   name       = "optimize-live"
   repository = "https://registry.stormforge.io/chartrepo/library/"
   chart      = "optimize-live"
-  version    = "0.2.3"
+  version    = var.optimize.live_helm_version
   namespace  = "stormforge-system"
 
   values = [data.aws_secretsmanager_secret_version.optimize-secret.secret_string]

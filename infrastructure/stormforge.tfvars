@@ -9,8 +9,13 @@ vpc_config = {
 
 project_config = {
   name            = "stormforge"
-  cluster_version = "1.21"
+  cluster_version = "1.23"
   cluster_name    = "storm-demo"
+}
+
+optimize = {
+  live_helm_version = "0.7.4"
+  pro_helm_version = "3.1.0"
 }
 
 tags = {
@@ -18,12 +23,7 @@ tags = {
 }
 
 versions_config = {
-  # karpenter         = "0.13.1"
   aws_lb_controller = "1.4.2"
-  # external_dns      = "6.5.5"
-  # jenkins           = "3.12.1"
-  # sonarqube         = "3.0.0"
-  # consul            = "0.43.0"
 }
 
 secrets = {

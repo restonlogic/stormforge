@@ -12,11 +12,11 @@ secret_name='/stormforge/optimize-secrets'
 aws configure set default.region $region
 
 # Generates secret and pipes into file
-stormforge gen secret -o helm >  secret.yaml
+# stormforge gen secret -o helm >  secret.yaml
+stormforge auth new-token --name "storm-demo" -o helm >  secret.yaml
 
 #Creates secret 
 aws secretsmanager create-secret --name $secret_name --secret-string file://secret.yaml
-
 
 #Cleaning up files
 rm secret.yaml
