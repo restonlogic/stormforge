@@ -3,12 +3,12 @@ data "aws_secretsmanager_secret_version" "optimize-secret" {
 }
 
 resource "helm_release" "optimize-pro" {
-  name       = "optimize-controller"
-  repository = "https://registry.stormforge.io/chartrepo/library/"
-  chart      = "optimize-controller"
-  version    = var.optimize.pro_helm_version
-  namespace  = "stormforge-system"
-
-  values = [data.aws_secretsmanager_secret_version.optimize-secret.secret_string]
+  name             = "optimize-pro"
+  repository       = "oci://registry.stormforge.io/library/optimize-pro"
+  chart            = "optimize-pro"
+  namespace        = "stormforge-system"
+  atomic           = true
+  create_namespace = true
+  values           = [data.aws_secretsmanager_secret_version.optimize-secret.secret_string]
 }
 

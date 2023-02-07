@@ -121,8 +121,7 @@ aws ssm put-parameter --name /tf/${project}/tfBucketName --overwrite --type Stri
 aws ssm put-parameter --name /tf/${project}/regionName --overwrite --type String --value $AWS_REGION >/dev/null
 
 #for service in network cluster app_services lambda_deployment post-cluster mgmt-services monitoring security; do
-#for service in network-services cluster-services post-cluster-services optimize-live optimize-pro; do
-for service in network-services cluster-services post-cluster-services optimize-live; do
+for service in network-services cluster-services post-cluster-services optimize-live optimize-pro; do
     echo "Creating ${service} service for project ${project} ..."
     cd ${PWD}/${service}
     ./run.sh apply $project $git_user $git_token $git_repo
