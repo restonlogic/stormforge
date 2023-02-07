@@ -11,10 +11,7 @@ variable "tags" {}
 # variable "versions_config" {}
 
 
-# variable "eks_users" {}
-
-# variable "assumed_role_eks_users" {}
-
+variable "eks_users" {}
 
 # # enable_external_dns = false
 # # dns_domain = var.dns_domain

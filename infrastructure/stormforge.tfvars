@@ -1,5 +1,5 @@
-dns_domain              = "avar-demo.com"
-acm_certificate_domain  = "*.avar-demo.com"
+dns_domain             = "avar-demo.com"
+acm_certificate_domain = "*.avar-demo.com"
 
 vpc_config = {
   name   = "stormforge-vpc",
@@ -15,7 +15,7 @@ project_config = {
 
 optimize = {
   live_helm_version = "0.7.4"
-  pro_helm_version = "3.1.0"
+  pro_helm_version  = "3.1.0"
 }
 
 tags = {
@@ -32,3 +32,4 @@ secrets = {
 
 ed-api-key = "9f92bba5-74c0-4a99-88c5-933e1c7a337a"
 
+eks_users = ["tanvir.ahmed", "madhu.joshi"]

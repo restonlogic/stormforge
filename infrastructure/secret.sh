@@ -13,7 +13,6 @@ aws configure set default.region $region
 
 # Generates secret and pipes into file
 # stormforge gen secret -o helm >  secret.yaml
-#stormforge auth new-token --name "storm-demo" -o helm >  secret.yaml
 stormforge create cluster storm-demo >credential-values.yaml
 
 #Creates secret
