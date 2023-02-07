@@ -15,7 +15,7 @@ project_config = {
 
 optimize = {
   live_helm_version = "0.7.4"
-  pro_helm_version  = "3.1.0"
+  pro_helm_version  = "2.1.7"
 }
 
 tags = {
