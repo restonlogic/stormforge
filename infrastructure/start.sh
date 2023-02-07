@@ -59,14 +59,6 @@ for pass in 1 2; do
                 AWS_REGION=$2
                 shift
                 ;;
-            # -k | --aws-access-key-id)
-            #     AWS_ACCESS_KEY_ID=$2
-            #     shift
-            #     ;;
-            # -s | --aws-secret-access-key)
-            #     AWS_SECRET_ACCESS=$2
-            #     shift
-            #     ;;
             -v | --verbose) VERBOSE=$(($VERBOSE + 1)) ;;
             --*) error $1 ;;
             -*) if [ $pass -eq 1 ]; then
@@ -96,6 +88,12 @@ if [ -n "$*" ]; then
     exit 1
 fi
 
+if [ -z $AWS_REGION ] || [ -z $git_token ] || [ -z $git_user ] || [ -z $git_repo ]; then
+    echo "missing parameters, please see options below"
+    usage
+    exit 1
+fi
+
 # Global variables.
 project='stormforge'
 
@@ -110,8 +108,15 @@ BUCKET_NAME="terraform-state-${project}-${accountid}"
 
 # Create terraform state bucket
 echo "Creating Terraform Backend Bucket: ${BUCKET_NAME}"
-export AWS_DEFAULT_REGION=$AWS_REGION
-aws s3 mb s3://${BUCKET_NAME} --region ${AWS_REGION}
+
+BUCKET_EXISTS=$(aws s3api head-bucket --bucket ${BUCKET_NAME} 2>&1 || true)
+if [ -z "$BUCKET_EXISTS" ]; then
+    printf "Terraform state bucket exists.skipping${NC}\n"
+else
+    echo "Bucket does not exist"
+    aws s3 mb s3://$BUCKET_NAME --region $AWS_REGION
+fi
+
 aws ssm put-parameter --name /tf/${project}/tfBucketName --overwrite --type String --value $BUCKET_NAME >/dev/null
 aws ssm put-parameter --name /tf/${project}/regionName --overwrite --type String --value $AWS_REGION >/dev/null
 
