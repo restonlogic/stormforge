@@ -115,7 +115,7 @@ aws configure set default.region $AWS_REGION
 BUCKET_NAME="terraform-state-${project}-${accountid}"
 
 #for service in network cluster app_services lambda_deployment post-cluster mgmt-services monitoring security; do
-for service in optimize-live optimize-pro post-cluster-services cluster-services network-services; do
+for service in optimize-pro post-cluster-services cluster-services network-services; do
     echo "Destroying ${service} service for project ${project} ..."
     cd ${PWD}/${service}
     ./run.sh destroy $project $git_user $git_token $git_repo

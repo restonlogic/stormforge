@@ -8,7 +8,7 @@ resource "helm_release" "optimize-pro" {
   chart            = "optimize-pro"
   namespace        = "stormforge-system"
   atomic           = true
-  create_namespace = true
+  create_namespace = false
   values           = [data.aws_secretsmanager_secret_version.optimize-secret.secret_string]
 }
 

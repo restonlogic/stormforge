@@ -63,7 +63,7 @@ module "eks_blueprints_kubernetes_addons" {
   #---------------------------------------------------------------
   # Prometheus Configurations
   #---------------------------------------------------------------
-  enable_prometheus = false
+  enable_prometheus = true
   prometheus_helm_config = {
     name       = "prometheus"                                         # (Required) Release name.
     repository = "https://prometheus-community.github.io/helm-charts" # (Optional) Repository URL where to locate the requested chart.
