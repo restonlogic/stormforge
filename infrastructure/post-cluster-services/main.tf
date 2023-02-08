@@ -146,3 +146,7 @@ module "eks_blueprints_kubernetes_addons" {
 #     AWS_SECRET_ACCESS_KEY = var.aws_credentials.secret_access_key
 #   }
 # }
+
+/* module "prometheus" {
+  source = "../modules/prometheus"
+} */
