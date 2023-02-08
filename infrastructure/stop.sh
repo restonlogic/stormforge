@@ -96,6 +96,12 @@ if [ -n "$*" ]; then
     exit 1
 fi
 
+if [ -z $AWS_REGION ] || [ -z $git_token ] || [ -z $git_user ] || [ -z $git_repo ]; then
+    echo "missing parameters, please see options below"
+    usage
+    exit 1
+fi
+
 # Global variables.
 project='stormforge'
 
@@ -109,7 +115,7 @@ aws configure set default.region $AWS_REGION
 BUCKET_NAME="terraform-state-${project}-${accountid}"
 
 #for service in network cluster app_services lambda_deployment post-cluster mgmt-services monitoring security; do
-for service in post-cluster-services cluster-services network-services; do
+for service in optimize-live optimize-pro post-cluster-services cluster-services network-services; do
     echo "Destroying ${service} service for project ${project} ..."
     cd ${PWD}/${service}
     ./run.sh destroy $project $git_user $git_token $git_repo
@@ -124,9 +130,6 @@ aws s3 rb s3://${BUCKET_NAME} --force --region ${AWS_REGION}
 #Delete parameter
 aws ssm delete-parameter --name /tf/${project}/tfBucketName
 aws ssm delete-parameter --name /tf/${project}/regionName
-
-
-
 
 # # Print endpoints
 # bash bin/get-endpoints.sh
