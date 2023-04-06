@@ -30,6 +30,6 @@ secrets = {
   stormforge = "/stormforge/optimize-secrets"
 }
 
-ed-api-key = "9f92bba5-74c0-4a99-88c5-933e1c7a337a"
+ed-api-key = "CHANGEMEXXXXXXXXXXXXXX"
 
-eks_users = ["tanvir.ahmed", "madhu.joshi"]
+eks_users = ["user1", "user2"]
