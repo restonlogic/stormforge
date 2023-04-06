@@ -1,5 +1,5 @@
-dns_domain             = "avar-demo.com"
-acm_certificate_domain = "*.avar-demo.com"
+dns_domain             = "CHANGEME"
+acm_certificate_domain = "*.CHANGEME"
 
 vpc_config = {
   name   = "stormforge-vpc",
